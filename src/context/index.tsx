@@ -21,11 +21,17 @@ interface AppContextInterface {
 export const AppContext =
   React.createContext<AppContextInterface>(initialState);
 
-const initialState: AppContextInterface = {
+export const initialState: AppContextInterface = {
   user: {
     name: 'User Name Test',
     mail: 'user@test.com',
     photo: 'asd.jpg',
+  },
+  filters: {
+    focus: {
+      country: 'ar',
+    },
+    category: null,
   },
   favorites: [],
 };

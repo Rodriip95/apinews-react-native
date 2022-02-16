@@ -25,31 +25,34 @@ const HomeScreen = () => {
   const [page, setPage] = useState(1);
 
   const {
-    state: {user},
+    state: {filters},
   } = useContext(AppContext);
-
-  const argentina: CountryType = {
-    country: 'ar',
-  };
-  const espanol: LanguageType = {
-    language: 'es',
-  };
-
-  const ejemplo: OptionsType = {
-    focus: argentina,
-  };
 
   useEffect(() => {
     console.log('useEffect');
     console.log('Page: ', page);
     setLoading(true);
-    getData();
+    getData(filters, false);
   }, [page]);
 
-  const getData: void = async () => {
+  useEffect(() => {
+    console.log('Filtro cambiado');
+    console.log('Page: ', page);
+    setLoading(true);
+    getData(filters, true);
+  }, [filters]);
+
+  const getData: void = async (params, reset) => {
+    console.log(params);
     try {
-      let res = await getNews(ejemplo, page);
-      setData(data.concat(res.articles));
+      let res = await getNews(params, page);
+      if (reset) {
+        console.log('Reset');
+        setData(res.articles);
+      } else {
+        console.log('No Reset');
+        setData(data.concat(res.articles));
+      }
       setLoading(false);
     } catch (error) {
       console.log(error);

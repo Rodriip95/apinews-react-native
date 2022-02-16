@@ -17,6 +17,7 @@ import {
   DrawerContentScrollView,
   DrawerItemList,
 } from '@react-navigation/drawer';
+import FilterScreen from '../screens/filter/FilterScreen';
 
 function CustomDrawerContent(props) {
   return (
@@ -63,10 +64,12 @@ function HomeDrawer() {
             fontFamily: 'Poppins-ExtraBold',
             fontSize: 24,
           },
-          drawerLabel: 'Noticias',
           headerStyle: {backgroundColor: colors.azul},
+          drawerLabel: 'Noticias',
           headerRight: () => (
-            <TouchableOpacity style={styles.paddingIcons}>
+            <TouchableOpacity
+              style={styles.paddingIcons}
+              onPress={() => navigation.navigate('FilterScreen')}>
               <FilterIcon />
             </TouchableOpacity>
           ),
@@ -95,6 +98,20 @@ function RootNavigation() {
           options={() => ({
             headerShown: false,
           })}
+        />
+        <Stack.Screen
+          name="FilterScreen"
+          component={FilterScreen}
+          options={{
+            title: 'Filtros',
+            headerTintColor: colors.verde,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              fontFamily: 'Poppins-ExtraBold',
+              fontSize: 24,
+            },
+            headerStyle: {backgroundColor: colors.azul},
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer>
